@@ -33,7 +33,73 @@
     <h2>修改後的程式內容</h2>
     在這裡，你可以分享你修改後的程式碼，並解釋你做了哪些改變。
     <h3>修改的部分</h3>
+    <pre>洗牌演算法
+        private void show()
+        {
+        CBF110031_input.Text = string.Empty;
+
+        if (CBF110031_DDL1.Items.Count > 0)
+        {
+        Random random = new Random();
+        int randomIndex = random.Next(CBF110031_DDL1.Items.Count);
+        ListItem randomWordItem = CBF110031_DDL1.Items[randomIndex];
+        string randomWord = randomWordItem.Text;
+
+        string chinese = randomWordItem.Value;
+
+        CBF110031_ch_hint.Text = chinese;
+
+        CorrectAnswer = randomWord;
+
+        int wordLength = randomWord.Length;
+        string underscoresWithSpaces = $"{randomWord.Substring(0, 1)}{string.Join(" ", Enumerable.Repeat("_", wordLength - 1))}";
+
+        CBF110031_input.Attributes["value"] = underscoresWithSpaces;
+
+        CBF110031_DDL1.Items.RemoveAt(randomIndex);
+        }
+        }
+    </pre>
     <h3>程式碼說明</h3>
+    這段程式碼使用的是洗牌演算法，主要目的是在下拉式清單中隨機選取一個單字，顯示其中文解釋和帶下劃線的單字，然後將選取的單字從下拉式清單中移除，以確保不會重複出現。
+    <pre>
+        private void show()
+        {
+        CBF110031_input.Text = string.Empty; // 清空使用者輸入框的文字內容，準備接受使用者輸入
+
+        if (CBF110031_DDL1.Items.Count > 0) // 檢查下拉式清單中是否有選項
+        {
+        // 生成一個隨機數，用於獲取隨機的單字
+        Random random = new Random();
+        int randomIndex = random.Next(CBF110031_DDL1.Items.Count);
+
+        // 獲取隨機選擇的 ListItem
+        ListItem randomWordItem = CBF110031_DDL1.Items[randomIndex];
+
+        // 獲取單字的文字內容
+        string randomWord = randomWordItem.Text;
+
+        // 獲取單字對應的中文解釋
+        string chinese = randomWordItem.Value;
+
+        // 在頁面上顯示中文解釋，並提示當前問題的意思
+        CBF110031_ch_hint.Text = chinese;
+
+        // 存儲正確答案以備後續驗證
+        CorrectAnswer = randomWord;
+        
+        // 計算單字的長度，生成帶下劃線和空格的字串表示使用者需要猜測的單字
+        int wordLength = randomWord.Length;
+        string underscoresWithSpaces = $"{randomWord.Substring(0, 1)}{string.Join(" ", Enumerable.Repeat("_", wordLength - 1))}";
+
+        // 將生成的字串設置為使用者輸入框的值，以顯示帶下劃線的單字
+        CBF110031_input.Attributes["value"] = underscoresWithSpaces;
+
+        // 從下拉式清單中移除已使用過的選項，確保下一個問題不會與當前問題相同
+        CBF110031_DDL1.Items.RemoveAt(randomIndex);
+        }
+        }
+    </pre>
 
     <h2>程式執行畫面</h2>
     在這裡，你可以分享你的程式執行畫面，並解釋每個畫面的功能。
